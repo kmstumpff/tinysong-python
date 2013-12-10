@@ -1,4 +1,3 @@
-
 #import hashlib 
 #import hmac
 import urllib2
@@ -7,7 +6,7 @@ import simplejson
 API_KEY = '' #fill in with your key
 API_URL = 'http://tinysong.com/'
 API_FORMAT = 'json'
-global S_ONE_RESULT
+global TS_ONE_RESULT
 TS_ONE_RESULT = "a/"
 global TS_ONE_WITH_METADATA
 TS_ONE_WITH_METADATA = "b/"
