@@ -1,10 +1,12 @@
 import tinysong as ts
 import os
+import sys
+
 
 def program():
-	limit = 5
-	limit = int(raw_input("Enter the number of results to display: "))
-	print("\n")
+	limit = 8
+	#limit = int(raw_input("Enter the number of results to display: "))
+	print(sys.platform + "\n")
 	query = raw_input("Enter a search query: ")
 	ret=ts.api_call(query, 3, limit)
 	if ret == []:
@@ -25,7 +27,13 @@ def program():
 		if open_url.lower() == "y":
 			choice = int(raw_input("Please enter the number you want to open: "))
 			if choice <= numb_results:
-				os.system("open " + ts.get_url(ret, choice - 1))
+				#We need to open the url differently between OS's
+				if sys.platform == "darwin":
+					os.system("open " + ts.get_url(ret, choice - 1))
+				if sys.platform == "win32":
+					os.system("start " + ts.get_url(ret, choice - 1))
+				if sys.platform == "linux"
+					os.system("firefox " + ts.get_url(ret, choice - 1))
 			else:
 				print("Invalid answer: Doing nothing...")
 	ans = str(raw_input("\nDo you want to search again? [Y/N] "))
