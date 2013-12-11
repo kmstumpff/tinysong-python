@@ -5,8 +5,8 @@ import sys
 
 def program():
 	limit = 8
-	#limit = int(raw_input("Enter the number of results to display: "))
-	print(sys.platform + "\n")
+	limit = int(raw_input("Enter the number of results to display: "))
+	print("\n")
 	query = raw_input("Enter a search query: ")
 	ret=ts.api_call(query, 3, limit)
 	if ret == []:
@@ -14,7 +14,6 @@ def program():
 	else:
 		print("\nMatch found!\n")
 		numb_results = len(ret)
-		print(numb_results)
 		for x in range(0, numb_results):
 			print("  Result: " + str(x + 1))
 			print("-------------------------------------------")
@@ -23,8 +22,10 @@ def program():
 			print("| Album: " + ts.get_album(ret, x))
 			print("| Url: " + ts.get_url(ret, x))
 			print("-------------------------------------------\n")
-		open_url = str(raw_input("\nDo you want to open a link one of these songs? [Y/N] "))
-		if open_url.lower() == "y":
+		while True:
+			open_url = str(raw_input("\nDo you want to open a link one of these songs? [Y/N] "))
+			if open_url.lower() == "n":
+				break
 			choice = int(raw_input("Please enter the number you want to open: "))
 			if choice <= numb_results:
 				#We need to open the url differently between OS's
