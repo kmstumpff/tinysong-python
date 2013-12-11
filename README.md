@@ -1,4 +1,10 @@
 tinysong-python
 ===============
 
-tinysong.com API in python
+Description
+-----------
+Tinysong API in python
+
+Usage
+-----
+See example.py for usage
