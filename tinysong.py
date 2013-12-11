@@ -1,7 +1,5 @@
-#import hashlib 
-#import hmac
 import urllib2
-import simplejson
+import json
 
 API_KEY = '' #fill in with your key
 API_URL = 'http://tinysong.com/'
@@ -46,7 +44,7 @@ def api_call(query, ret_type, limit=5, parameters={}):
     req = API_URL+TS_CHOICE+query.replace (" ", "+")+"?format="+API_FORMAT+"&key="+API_KEY+C_LIMIT
     print("request: " + req)
     response = urllib2.urlopen(req.lower()).read()
-    return simplejson.loads(response)
+    return json.loads(response)
     
 
 class APIError(Exception):
