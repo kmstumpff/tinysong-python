@@ -28,12 +28,14 @@ def program():
 			choice = int(raw_input("Please enter the number you want to open: "))
 			if choice <= numb_results:
 				#We need to open the url differently between OS's
-				if sys.platform == "darwin":
+				if sys.platform[:6] == "darwin":
 					os.system("open " + ts.get_url(ret, choice - 1))
-				if sys.platform == "win32":
+				elif sys.platform[:3] == "win":
 					os.system("start " + ts.get_url(ret, choice - 1))
-				if sys.platform == "linux"
+				elif sys.platform[:5] == "linux":
 					os.system("firefox " + ts.get_url(ret, choice - 1))
+				else:
+					print("Unsupported platform: Cannot open URL...")
 			else:
 				print("Invalid answer: Doing nothing...")
 	ans = str(raw_input("\nDo you want to search again? [Y/N] "))
