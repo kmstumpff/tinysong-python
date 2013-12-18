@@ -1,24 +1,18 @@
-
 import urllib2
 import json
-
-API_KEY = ''  # fill in with your key
-API_URL = 'http://tinysong.com/'
-API_FORMAT = 'json'
-global TS_ONE_RESULT
-TS_ONE_RESULT = "a/"
-global TS_ONE_WITH_METADATA
-TS_ONE_WITH_METADATA = "b/"
-global TS_MULTIPLE_WITH_METADATA
-TS_MULTIPLE_WITH_METADATA = "s/"
-global TS_CHOICE
-TS_CHOICE = ""
 
 
 class Query:
     def __init__(self):
         self.json = []
         self.length = 0
+        self.api_key = ''  # fill in with your key
+        self.api_url = 'http://tinysong.com/'
+        self.api_format = 'json'
+        self.ret_1 = "a/"  # return one result
+        self.ret_2 = "b/"  # return one result with metadata
+        self.ret_3 = "s/"  # return multiple results with metadata
+        self.ret_choice = ""
 
     def check_results(self):
         if self.json:
@@ -32,43 +26,37 @@ class Query:
     def get_songid(self, numb):
         return self.json[numb]['SongID']
 
-
     def get_artist(self, numb):
         return self.json[numb]['ArtistName']
-
 
     def get_album(self, numb):
         return self.json[numb]['AlbumName']
 
-
     def get_albumid(self, numb):
         return self.json[numb]['AlbumID']
-
 
     def get_url(self, numb):
         return self.json[numb]['Url']
 
-
     def api_call(self, query, ret_type, limit=5):
         if ret_type == 1:
-            TS_CHOICE = TS_ONE_RESULT
+            self.ret_choice = self.ret_1
         if ret_type == 2:
-            TS_CHOICE = TS_ONE_WITH_METADATA
+            self.ret_choice = self.ret_2
         if ret_type == 3:
-            TS_CHOICE = TS_MULTIPLE_WITH_METADATA
-            C_LIMIT="&limit=" + str(limit)
+            self.ret_choice = self.ret_3
+            lmt = "&limit=" + str(limit)
         else:
-            TS_CHOICE = TS_MULTIPLE_WITH_METADATA
-            C_LIMIT=""
-        req = API_URL+TS_CHOICE+query.replace(" ", "+")+"?format="+API_FORMAT+"&key="+API_KEY+C_LIMIT
+            self.ret_choice = self.ret_3
+            lmt = ""
+        req = self.api_url + self.ret_choice + query.replace(" ", "+") + "?format=" + self.api_format + "&key=" + self.api_key + lmt
         # print("request: " + req)
         response = urllib2.urlopen(req.lower()).read()
         self.json = json.loads(response)
         self.length = len(self.json)
-    
+
 
 class APIError(Exception):
-    
     def __init__(self, value):
         self.message = value
 
