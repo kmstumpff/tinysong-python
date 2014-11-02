@@ -103,7 +103,11 @@ def disp_menu():
 def program():
     print("\n")
     query = raw_input("Enter a search query: ")
-    tsQuery.api_call(query, 3, 500)
+    try:
+        tsQuery.api_call(query, 3, 500)
+    except tinysong.APIError as e:
+        print(e)
+        exit(-1)
     if not tsQuery.json:
         print("No match found!")
     else:

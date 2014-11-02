@@ -39,6 +39,9 @@ class Query:
         return self.json[numb]['Url']
 
     def api_call(self, query, ret_type, limit=5):
+        # Check API key
+        if not self.api_key:
+            raise APIError("Missing API key")
         if ret_type == 1:
             self.ret_choice = self.ret_1
         if ret_type == 2:
@@ -62,6 +65,3 @@ class APIError(Exception):
 
     def __str__(self):
         return repr("There was a problem with your API request: " + self.message)
-        
-        
-
